@@ -1,0 +1,10 @@
+notes.txt
+frontend/notes.md
+backend/notes.md
+
+backend/.vs
+backend/bin
+backend/obj
+
+frontend/node_modules
+frontend
