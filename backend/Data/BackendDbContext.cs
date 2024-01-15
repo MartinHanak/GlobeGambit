@@ -1,11 +1,13 @@
 ﻿using backend.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace backend.Data
 {
-    public class BackendDbContext : DbContext
+    public class BackendDbContext : IdentityDbContext<IdentityUser>
     {
         public BackendDbContext(DbContextOptions<BackendDbContext> options) : base(options)
         {
@@ -29,6 +31,7 @@ namespace backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<TestProduct>().HasData(
                 new TestProduct() { Id = 1, Name = "Apple iPad", Price = 1000 },

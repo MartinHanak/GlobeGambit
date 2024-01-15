@@ -1,3 +1,4 @@
+.gitignore
 notes.txt
 frontend/notes.md
 backend/notes.md
@@ -7,4 +8,3 @@ backend/bin
 backend/obj
 
 frontend/node_modules
-frontend

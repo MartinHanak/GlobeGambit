@@ -1,4 +1,5 @@
 using backend.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BackendDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>().AddEntityFrameworkStores<BackendDbContext>();
+
 var app = builder.Build();
+
+app.MapGroup("/auth").MapIdentityApi<IdentityUser>().WithTags("Auth"); ;
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
