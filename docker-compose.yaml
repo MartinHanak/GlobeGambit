@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   frontend:
     container_name: gg-frontend
@@ -9,7 +10,9 @@ services:
       - "8080:80"
   backend:
     container_name: gg-backend
-    build: /backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
     ports:
       - "5001:8080"
     depends_on:
@@ -23,6 +26,26 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=myStrongPassword123
     volumes:
-      - db-data:/var/opt/mssql
+      - db-data-test:/var/opt/mssql
+  database-migration:
+    container_name: gg-database-migration
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.migration
+    ports:
+      - "5001:8080"
+    volumes:
+      - type: bind
+        source: ./backend/Migrations
+        target: /app/Migrations
+    # interactive container
+    stdin_open: true
+    tty: true
+    #environment:
+    #  - NAME=DefaultMigrationName
+    depends_on:
+      - database
+    profiles:
+      - database-migration
 volumes:
-  db-data:
+  db-data-test:

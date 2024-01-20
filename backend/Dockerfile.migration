@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# build ARG 
+#ARG NAME=DefaultMigrationName
+#ENV MIGRATION_NAME=$NAME
+
+# Cache dependencies
+COPY *.csproj ./
+RUN dotnet restore
+
+COPY . .
+
+# Migrations
+RUN dotnet tool install --global dotnet-ef --version 8.0.1
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Use only if not running an interactive container
+#ENTRYPOINT ["sh", "run_migrations.sh" ]
+
