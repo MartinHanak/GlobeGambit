@@ -22,3 +22,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=myStrongPassword123
+    volumes:
+      - db-data:/var/opt/mssql
+volumes:
+  db-data:
