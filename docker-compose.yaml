@@ -1,14 +1,21 @@
 version: "3.8"
 services:
+  frontend:
+    container_name: gg-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8080:80"
   backend:
     container_name: gg-backend
     build: /backend
-    ports: 
-      - '5001:8080'
+    ports:
+      - "5001:8080"
     depends_on:
       - database
   database:
-    container_name: gg-database 
+    container_name: gg-database
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
       - 1433:1433
