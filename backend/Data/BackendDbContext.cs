@@ -11,20 +11,20 @@ namespace backend.Data
     {
         public BackendDbContext(DbContextOptions<BackendDbContext> options) : base(options)
         {
-            var dbCreater = Database.GetService<IRelationalDatabaseCreator>();
+            // var dbCreater = Database.GetService<IRelationalDatabaseCreator>();
 
-            if (dbCreater != null)
-            {
-                if (!dbCreater.CanConnect())
-                {
-                    dbCreater.Create();
-                }
+            // if (dbCreater != null)
+            // {
+            //     if (!dbCreater.CanConnect())
+            //     {
+            //         dbCreater.Create();
+            //     }
 
-                if (!dbCreater.HasTables())
-                {
-                    dbCreater.CreateTables();
-                }
-            }
+            //     if (!dbCreater.HasTables())
+            //     {
+            //         dbCreater.CreateTables();
+            //     }
+            // }
         }
 
         public DbSet<TestProduct> Products { get; set; }
