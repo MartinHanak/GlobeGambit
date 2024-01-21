@@ -9,22 +9,25 @@ namespace backend.Data
 {
     public class BackendDbContext : IdentityDbContext<IdentityUser>
     {
-        public BackendDbContext(DbContextOptions<BackendDbContext> options) : base(options)
+        public BackendDbContext(DbContextOptions<BackendDbContext> options, IHostEnvironment environment) : base(options)
         {
-            // var dbCreater = Database.GetService<IRelationalDatabaseCreator>();
+            if( environment.IsDevelopment() )
+            {
+                var dbCreater = Database.GetService<IRelationalDatabaseCreator>();
 
-            // if (dbCreater != null)
-            // {
-            //     if (!dbCreater.CanConnect())
-            //     {
-            //         dbCreater.Create();
-            //     }
+                if (dbCreater != null)
+                {
+                    if (!dbCreater.CanConnect())
+                    {
+                        dbCreater.Create();
+                    }
 
-            //     if (!dbCreater.HasTables())
-            //     {
-            //         dbCreater.CreateTables();
-            //     }
-            // }
+                    if (!dbCreater.HasTables())
+                    {
+                        dbCreater.CreateTables();
+                    }
+                }
+            }
         }
 
         public DbSet<TestProduct> Products { get; set; }

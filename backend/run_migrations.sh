@@ -1,2 +1,2 @@
-dotnet-ef migrations add $MIGRATION_NAME
-dotnet-ef database update
+ASPNETCORE_ENVIRONMENT=production dotnet-ef migrations add Initial
+ASPNETCORE_ENVIRONMENT=production dotnet-ef database update
