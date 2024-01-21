@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace backend.Controllers
 {
     [Authorize]
@@ -29,6 +30,12 @@ namespace backend.Controllers
 
         [HttpGet]
         public async Task<IEnumerable<TestProduct>> GetProduct(int id)
+        {
+            return await _context.Products.ToListAsync();
+        }
+
+        [HttpPost]
+        public async Task<IEnumerable<TestProduct>> PostProduct(int id)
         {
             return await _context.Products.ToListAsync();
         }

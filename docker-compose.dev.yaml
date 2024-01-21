@@ -14,11 +14,21 @@ services:
       - "8080:8080"
   backend:
     container_name: dev-gg-backend
-    build: /backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
     ports:
       - "5001:8080"
     depends_on:
       - database
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /app
+    # develop:
+    #   watch:
+    #     - action: rebuild
+    #       path: .
   database:
     container_name: dev-gg-database
     image: mcr.microsoft.com/mssql/server:2022-latest
